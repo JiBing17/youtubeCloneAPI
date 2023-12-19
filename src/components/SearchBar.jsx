@@ -1,54 +1,59 @@
+// Importing necessary components from React and Material-UI
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Paper, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-//SearchBar Component
+// SearchBar Component - Displays a search input and allows navigation based on search term
 const SearchBar = () => {
-  // keeps track of search term
-  const [searchTerm, setSearchTerm]  = useState('')
+  // State to keep track of the search term
+  const [searchTerm, setSearchTerm] = useState('');
 
-  // used to go to targeted path
+  // Hook to navigate to different paths in the application
   const navigate = useNavigate();
 
-  // function used to handle submission
-  const onhandleSubmit = (e) => {
-
-    // prevents website from reloading when submitting
+  // Function to handle form submission
+  const handleSubmit = (e) => {
+    // Prevents the website from reloading when submitting
     e.preventDefault();
     
     if (searchTerm) {
-      // navigates to targeted path
+      // Navigates to the targeted search path
       navigate(`/search/${searchTerm}`);
-      // resets search 
-      setSearchTerm('')
+      // Resets the search term
+      setSearchTerm('');
     }
   }
-    return (
-        <Paper
-          component='form'
-          // calls onHandleSubmit function when submitted
-          onSubmit={onhandleSubmit}
-          sx={{
-            borderRadius: 20,
-            border: '1px solid #e3e3e3',
-            pl: 2,
-            boxShadow: 'none',
-            mr: { sm: 5 },
-          }}
-        >
-          <input
-            className='search-bar'
-            placeholder='Search...'
-            value={searchTerm}
-            // sets search term to whatever is on input
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <IconButton type='submit' sx={{ p: '10px', color: 'red' }} aria-label='search'>
-            <SearchIcon />
-          </IconButton>
-        </Paper>
-      );
+
+  return (
+    // Paper component acting as a form for search functionality
+    <Paper
+      component='form'
+      // Calls handleSubmit function when submitted
+      onSubmit={handleSubmit}
+      sx={{
+        borderRadius: 20,
+        border: '1px solid #e3e3e3',
+        pl: 2,
+        boxShadow: 'none',
+        mr: { sm: 5 },
+      }}
+    >
+      {/* Input field for search term */}
+      <input
+        className='search-bar'
+        placeholder='Search...'
+        value={searchTerm}
+        // Updates the search term as the user types
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      {/* IconButton for submitting the search */}
+      <IconButton type='submit' sx={{ p: '10px', color: 'red' }} aria-label='search'>
+        <SearchIcon />
+      </IconButton>
+    </Paper>
+  );
 }
 
-export default SearchBar
+// Exporting SearchBar as the default component
+export default Search
